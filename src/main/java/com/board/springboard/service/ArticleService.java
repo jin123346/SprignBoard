@@ -83,16 +83,21 @@ public class ArticleService {
         return null;
     }
 
-    public ArticleDto modifyArticle(ArticleDto articleDto){
+    public String modifyArticle(ArticleDto articleDto){
         Optional<Article> opt = articleRepository.findByArticleId(articleDto.getArticleId());
         if(opt.isPresent()){
             Article article = opt.get();
-            article.update(articleDto);
-            Article updateArticle = articleRepository.save(article);
-            return updateArticle.toDto();
+            if(articleDto.getPassword().equals(article.getPassword())){
+                article.update(articleDto);
+                Article updateArticle = articleRepository.save(article);
+                return "success";
+            }else{
+                return "password Fail";
+            }
+
         }
 
-        return null;
+        return "not found";
 
     }
 

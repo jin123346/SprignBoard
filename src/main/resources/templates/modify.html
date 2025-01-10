@@ -140,18 +140,21 @@
                             title: form.title.value,
                             content: form.content.value,
                             nick: form.nick.value,
+                            password: passwordInput.value,
                         })
                     }).then(response => response.json())
                         .then(data => {
                             if(data.result === 'fail'){
                                 alert('업데이트 실패');
+                            }else if(data.result ==='password Fail'){
+                                alert('비밀번호가 틀렸습니다.');
                             }else{
                                 alert('업데이트 성공');
                                 window.location.href = '/board/view/'+articleId+'?pg='+pg;
                             }
 
                         }).catch(error => {
-                        console(error);
+                        console.log(error);
                     });
 
 

@@ -79,11 +79,14 @@ public class BoardController {
     @PostMapping("/board/modify")
     public ResponseEntity modifySubmit(@RequestBody ArticleDto articleDto){
         log.info("modifySubmit : " + articleDto);
-        ArticleDto updateArticle = articleService.modifyArticle(articleDto);
-        if ( updateArticle != null){
-            return ResponseEntity.ok().body(updateArticle);
-        }
-        return ResponseEntity.ok().body("fail");
+        Map<String,String> result = new HashMap<>();
+
+        String updateResult = articleService.modifyArticle(articleDto);
+
+        result.put("result",updateResult);
+        return ResponseEntity.ok().body(result);
+
+
     }
 
     @PostMapping("/board/validation")
