@@ -18,13 +18,22 @@ header{
     padding: 0;
     height: 50px;
     text-align: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
-h1{
+h1 > a{
     color: white;
     padding-left: 10px;
     line-height: 50px;
     font-size: 20px;
     font-weight: 800;
+}
+header > span{
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+
 }
 #write{
     width: 600px;
@@ -196,6 +205,11 @@ h1{
 
 
 }
+.view{
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
 
 .view th{
     text-align: left;
@@ -271,4 +285,45 @@ h1{
 .confirm-btn {
     background-color: red;
     color: white;
+}
+
+
+.buttonArea .modal_btn{
+    position: absolute;
+    right: 210px;
+    top: 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-weight: 800;
+}
+
+.buttonArea{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    align-items: flex-end
+}
+#page > a{
+    align-items: center;
+    border: 1px solid #ddd;
+    width: 20px;
+    height: 25px;
+    padding: 8px ;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#page > a.active{
+    background-color: #ddd;
+    color: black;
+    font-weight: 800;
+}
+#page > a:hover{
+    background-color: #ddd;
+    opacity: 50%;
+    color: black;
+    font-weight: 800;
 }

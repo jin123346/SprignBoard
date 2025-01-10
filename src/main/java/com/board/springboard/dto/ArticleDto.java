@@ -3,6 +3,8 @@ package com.board.springboard.dto;
 import com.board.springboard.entity.Article;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -16,6 +18,7 @@ public class ArticleDto {
     private String content;
     private String nick;
     private String password;
+    private LocalDateTime regDate;
 
     public Article toEntity(){
         return Article.builder()
@@ -25,6 +28,7 @@ public class ArticleDto {
                 .password(password)
                 .articleId(articleId)
                 .hit(hit)
+                .regDate(regDate)
                 .build();
     }
 }

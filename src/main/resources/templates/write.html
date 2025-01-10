@@ -103,7 +103,9 @@
 <body>
 <div class="wrapper">
     <header>
-        <h1>익명 게시판 글쓰기 </h1>
+        <h1><a th:href="@{/}">익명 게시판 </a></h1>
+        <span>글쓰기</span>
+
     </header>
     <main>
         <form th:action="@{/board/write}" method="post" id="write">

@@ -37,15 +37,16 @@ public class ArticleService {
     }
 
     public PageResponseDto selectArticleList(PageRequestDto pageRequestDto){
-        Pageable pageable = Pageable.ofSize(10);
+        Pageable pageable = pageRequestDto.toPageable();
 
         Page<Article> pages = articleRepository.findAll(pageable);
         List<Article> articles = pages.getContent();
         List<ArticleDto> articleDtoList = articles.stream().map(Article::toDto).toList();
 
         return  PageResponseDto.builder()
-                .articleDtoList(articleDtoList)
+                .dtoList(articleDtoList)
                 .total((int) pages.getTotalElements())
+                .size(pageRequestDto.getSize())
                 .pageRequestDto(pageRequestDto)
                 .build();
     }

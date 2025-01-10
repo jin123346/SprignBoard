@@ -49,7 +49,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/view/{articleId}")
-    public String view(@PathVariable("articleId") String articleId,Model model,@RequestParam long pg){
+    public String view(@PathVariable("articleId") String articleId,Model model,@RequestParam(defaultValue = "1") long pg){
         ArticleDto articleDto = articleService.selectArticle(Long.valueOf(articleId));
         model.addAttribute("articleDto",articleDto);
         model.addAttribute("pg",pg);
@@ -57,7 +57,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/modify/{articleId}")
-    public String modify(@PathVariable("articleId") String articleId ,@RequestParam long pg,Model model){
+    public String modify(@PathVariable("articleId") String articleId ,@RequestParam(defaultValue = "1") long pg,Model model){
         log.info("modify : " + articleId);
 
         ArticleDto articleDto = articleService.selectArticle(Long.valueOf(articleId));

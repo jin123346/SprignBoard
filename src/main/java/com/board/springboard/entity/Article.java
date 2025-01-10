@@ -7,6 +7,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -24,6 +28,9 @@ public class Article {
     private String content;
     private String nick;
     private String password;
+
+    @CreationTimestamp
+    private LocalDateTime regDate;
 
     @Builder.Default
     private Long hit = 0L ;
