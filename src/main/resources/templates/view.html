@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <script>
+    window.onload = function(){
+      const modal = document.querySelector('#passwordModal');
+      const passwordInput = document.querySelector('#passwordInput');
+      const closeBtn = document.querySelector('.close-btn');
+      const confirmBtn = document.querySelector('.confirm-btn');
+      const articleId = document.querySelector('#articleId').value;
+      const form   = document.getElementById('view');
+      const pg = document.getElementById('pg').value;
+     form.addEventListener('submit', function (e) {
+       e.preventDefault();
+       modal.style.display = 'block';
+       console.log('submit');
+
+       closeBtn.addEventListener('click', function () {
+         modal.style.display = 'none';
+         passwordInput.value = ''; // 입력 필드 초기화
+       });
+
+       confirmBtn.addEventListener('click', function () {
+         fetch('/board/validate', {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify({
+             articleId: articleId,
+             password:  passwordInput.value,
+           })
+         }).then(res => res.json())
+           .then(data => {
+             if(data.result === 'fail'){
+               alert('비밀번호가 일치하지 않습니다.')
+             }else{
+               window.location.href = '/board/modify/'+articleId+'?pg='+pg;
+             }
+           });
+
+       });
+     });
+
+
+
+
+
+    }
+
+  </script>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <h1>익명 게시판 글보기 </h1>
+  </header>
+  <main>
+    <form action="" id="view" >
+      <input type="hidden" name="pg" id="pg" th:value="${pg}">
+      <input type="hidden" name="articleId" th:value="${articleDto.articleId}" id="articleId">
+      <table class="view">
+        <tr>
+          <th>제목</th>
+          <td><input type="text" name="title" id="title" th:value="${articleDto.title}" readonly></td>
+        </tr>
+        <tr>
+          <th>닉네임</th>
+          <td><input type="text" name="nick" id="nick" th:value="${articleDto.nick}" readonly></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea name="content" id="content" th:value="${articleDto.content}" readonly>[[${articleDto.content}]]</textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="buttonArea">
+        <button type="submit" class="modal_btn">수정하기</button>
+      </div>
+    </form>
+
+  </main>
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <h3>패스워드 확인</h3>
+      <p>삭제를 위해 비밀번호를 입력하세요.</p>
+      <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+      <div>
+        <button class="close-btn">취소</button>
+        <button class="confirm-btn">확인</button>
+      </div>
+  </div>
+</div>
+
+
+</div>
+
+
+</body>
+</html>

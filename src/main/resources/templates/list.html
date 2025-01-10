@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+
+
+    </style>
+    <script>
+        window.onload = function(){
+            const deleteBtns = document.querySelectorAll('.delete');
+            const modal = document.querySelector('#passwordModal');
+            const passwordInput = document.querySelector('#passwordInput');
+            const closeBtn = document.querySelector('.close-btn');
+            const confirmBtn = document.querySelector('.confirm-btn');
+
+            const pg = document.querySelector('#pg').value === '0' ? 1: document.querySelector('#pg').value;
+            console.log(pg);
+
+            let selectedArticleId = null;
+            deleteBtns.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    selectedArticleId = this.dataset.id; // 게시글 ID 저장
+                    console.log(selectedArticleId);
+                    modal.style.display = 'block';
+                });
+            });
+
+
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+                passwordInput.value = ''; // 입력 필드 초기화
+            });
+
+            confirmBtn.addEventListener('click', function () {
+                const password = passwordInput.value;
+                if (!password) {
+                    alert('비밀번호를 입력해주세요.');
+                    return;
+                }
+
+                fetch('/board/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        articleId: selectedArticleId,
+                        password: password
+                    })
+                }).then(response => response.json())
+                    .then(data => {
+                        if(data.result === 'success'){
+                            alert('삭제되었습니다.');
+                            location.href = `/board/list?pg=${pg}`;
+                        }else{
+                            alert('비밀번호가 맞지않습니다.');
+                        }
+                }).catch(error => {
+                    console(error);
+                });
+
+
+                console.log(`Article ID: ${selectedArticleId}, Password: ${password}`);
+                modal.style.display = 'none';
+                passwordInput.value = '';
+
+
+            });
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h1>익명 게시판</h1>
+    </header>
+    <main>
+        <table class="list">
+            <thead>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th></th>
+            </thead>
+            <tbody>
+            <tr th:each="board ,i: ${pageResponseDto.getArticleDtoList()}">
+                <td>[[${i.index}]]</td>
+                <td><a th:href="@{/board/view/{articleId}(articleId=${board.articleId},pg=${pageResponseDto.pg})}">[[${board.title}]]</a></td>
+                <td>[[${board.nick}]]</td>
+                <td>
+                    <a class="delete"  th:href="@{/}" th:data-id="${board.articleId}">삭제</a>
+                    <a class="modify" th:href="@{/board/modify/{articleId}(articleId=${board.articleId},pg=${pageResponseDto.pg})}">수정</a>
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+       <input type="hidden" id="pg" th:value="${pageResponseDto.pg}">
+
+        <div class="buttonArea">
+            <a th:href="@{/board/write}" class="writeBtn">글쓰기</a>
+
+        </div>
+        <div class="modal" id="passwordModal">
+            <div class="modal-content">
+                <h3>패스워드 확인</h3>
+                <p>삭제를 위해 비밀번호를 입력하세요.</p>
+                <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+                <div>
+                    <button class="close-btn">취소</button>
+                    <button class="confirm-btn">확인</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

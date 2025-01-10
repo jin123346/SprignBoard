@@ -1,0 +1,274 @@
+/* 태그 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    font: normal 12px '돋움';
+}
+ul, ol {list-style: none;}
+a {text-decoration: none; color: #111;}
+input, textarea {outline: none; border: none;}
+.wrapper{
+    width: 800px;
+    height: 1000px;
+    margin: 0 auto;
+    border:1px solid black;
+}
+header{
+    background-color: black;
+    padding: 0;
+    height: 50px;
+    text-align: left;
+}
+h1{
+    color: white;
+    padding-left: 10px;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: 800;
+}
+#write{
+    width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#write > .write{
+    margin: 20px auto;
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    border-collapse:collapse;
+    border: 1px solid #ddd;
+}
+
+#write  .submitBtn{
+    position: absolute;
+    right: 200px;
+    width: 100px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-weight: 800;
+
+}
+#write  .submitBtn:hover{
+    background-color: red;
+}
+
+.write th{
+    text-align: left;
+    text-indent: 15px;
+    width: 100px;
+    font-size: 12px;
+    font-weight: 800;
+    background-color: #979797;
+    color: rgb(223, 223, 223);
+}
+.write  td{
+    text-align: left;
+    text-indent: 10px;
+
+}
+
+.write td{
+    border: none;
+}
+.write tr{border-bottom: 1px solid #ddd;}
+
+.write tr:nth-child(1){  height: 30px;}
+.write tr:nth-child(2){  height: 30px;}
+.write tr:nth-child(3){  height: 300px;}
+.write tr:nth-child(4){  height: 30px;}
+
+.write textarea{
+    min-width: 480px;
+    min-height: 260px;
+    max-height: 260px;
+    resize: none;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.list{
+            margin: 20px auto;
+            width: 80%;
+          height: auto;
+          max-height: 800px;
+           border-collapse:collapse;
+    }
+
+.list > thead{
+    height: 40px;
+}
+.list th{
+    font-size: 15px;
+    font-weight: 800;
+    background-color: #5a5a5a;
+    color: rgb(223, 223, 223);
+}
+.list  td{
+    height: 40px;
+    text-align: center;
+
+}
+
+.list tr:nth-child(even){
+    background-color: #ebe9e9;
+}
+
+.list td{
+    border: none;
+}
+.list .delete{
+    width: 50px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: red;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+.list .delete:hover{
+    opacity: 50%;
+}
+.list .modify{
+    width: 50px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: gold;
+    color: black;
+    box-sizing: border-box;
+}
+.list .modify:hover{
+    opacity: 50%;
+}
+.buttonArea{
+    width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+.writeBtn{
+    position: absolute;
+    width: 60px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    right: 80px;
+    text-align: center;
+
+}
+
+
+
+
+#view{
+    width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#view > .write{
+    margin: 20px auto;
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    border-collapse:collapse;
+    border: 1px solid #ddd;
+}
+
+#view  .modifyBtn{
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-weight: 800;
+
+}
+#view  .submitBtn:hover{
+    background-color: red;
+
+
+
+}
+
+.view th{
+    text-align: left;
+    text-indent: 15px;
+    width: 100px;
+    font-size: 12px;
+    font-weight: 800;
+    background-color: #979797;
+    color: rgb(223, 223, 223);
+}
+.view  td{
+    text-align: left;
+    text-indent: 10px;
+
+}
+
+.view td{
+    border: none;
+}
+.view tr{border-bottom: 1px solid #ddd;}
+
+.view tr:nth-child(1){  height: 30px;}
+.view tr:nth-child(2){  height: 30px;}
+.view tr:nth-child(3){  height: 300px;}
+
+.view textarea{
+    min-width: 480px;
+    min-height: 260px;
+    max-height: 260px;
+    resize: none;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+.modal-content input {
+    width: 90%;
+    margin-bottom: 10px;
+}
+.close-btn, .confirm-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.close-btn {
+    background-color: gray;
+    color: white;
+}
+.confirm-btn {
+    background-color: red;
+    color: white;
+}
