@@ -66,6 +66,10 @@ public class BoardController {
         return "modify";
     }
 
+    /**
+     * @param requestDeleteDto
+     * @return
+     */
     @PostMapping("/board/delete")
     public ResponseEntity delete(@RequestBody RequestDeleteDto requestDeleteDto){
         log.info("delete : " + requestDeleteDto);
